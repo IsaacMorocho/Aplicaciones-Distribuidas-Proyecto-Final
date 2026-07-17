@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+
+Tarea
+
+{% endblock %}
+
+{% block contenido %}
+
+<div class="card p-4">
+
+<h2>
+
+{{ tarea.titulo }}
+
+</h2>
+
+<hr>
+
+<p>
+
+<strong>Código:</strong>
+
+{{ tarea.codigo }}
+
+</p>
+
+<p>
+
+<strong>Descripción:</strong>
+
+{{ tarea.descripcion }}
+
+</p>
+
+<p>
+
+<strong>Fecha límite:</strong>
+
+{{ tarea.fecha }}
+
+{{ tarea.hora }}
+
+</p>
+
+<hr>
+
+{% if expirada %}
+
+<div class="alert alert-danger">
+
+La fecha límite de entrega ha expirado.
+
+</div>
+
+{% elif entregada %}
+
+<div class="alert alert-warning">
+
+Ya realizaste la entrega de esta tarea.
+
+</div>
+
+{% else %}
+
+<form method="POST">
+
+<label>
+
+Respuesta
+
+</label>
+
+<textarea
+name="respuesta"
+class="form-control"
+rows="8"></textarea>
+
+<br>
+
+<button
+class="btn btn-success">
+
+Enviar tarea
+
+</button>
+
+</form>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+
+Dashboard
+
+{% endblock %}
+
+{% block contenido %}
+
+<h2 class="mb-4">
+
+Bienvenido, Estudiante
+
+</h2>
+
+<div class="row">
+
+{% for tarea in tareas %}
+
+<div class="col-md-6 mb-4">
+
+<div class="card p-4">
+
+<h4>
+
+{{ tarea.titulo }}
+
+</h4>
+
+<hr>
+
+<p>
+
+<strong>Código:</strong>
+
+{{ tarea.codigo }}
+
+</p>
+
+<p>
+
+<strong>Descripción:</strong>
+
+{{ tarea.descripcion }}
+
+</p>
+
+<p>
+
+<strong>Fecha límite:</strong>
+
+{{ tarea.fecha }}
+
+</p>
+
+<p>
+
+<strong>Hora límite:</strong>
+
+{{ tarea.hora }}
+
+</p>
+
+<a
+href="/tarea/{{ tarea.id }}"
+class="btn btn-primary">
+
+Ver tarea
+
+</a>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
