@@ -1,81 +1,36 @@
 {% extends 'base.html' %}
 
 {% block titulo %}
-
 Dashboard
-
 {% endblock %}
 
 {% block contenido %}
+	<h2 class="mb-4">Bienvenido, Estudiante</h2>
 
-<h2 class="mb-4">
+	<div class="row">
+		{% for tarea in tareas %}
+			<div class="col-md-6 mb-4">
+				<div class="card p-4">
+					<h4>{{ tarea.titulo }}</h4>
+					<hr>
 
-Bienvenido, Estudiante
+					<p><strong>Código:</strong> {{ tarea.codigo }}</p>
+					<p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
+					<p><strong>Fecha límite:</strong> {{ tarea.fecha_limite.strftime('%d/%m/%Y %H:%M') }}</p>
+					<p><strong>Hora límite:</strong> {{ tarea.hora }}</p>
 
-</h2>
+					<a href="{{ url_for('ver_tarea', id_tarea=tarea.id) }}" class="btn btn-primary">
+						Ver tarea
+					</a>
+				</div>
+			</div>
+		{% endfor %}
 
-<div class="row">
-
-{% for tarea in tareas %}
-
-<div class="col-md-6 mb-4">
-
-<div class="card p-4">
-
-<h4>
-
-{{ tarea.titulo }}
-
-</h4>
-
-<hr>
-
-<p>
-
-<strong>Código:</strong>
-
-{{ tarea.codigo }}
-
-</p>
-
-<p>
-
-<strong>Descripción:</strong>
-
-{{ tarea.descripcion }}
-
-</p>
-
-<p>
-
-<strong>Fecha límite:</strong>
-
-{{ tarea.fecha }}
-
-</p>
-
-<p>
-
-<strong>Hora límite:</strong>
-
-{{ tarea.hora }}
-
-</p>
-
-<a
-href="/tarea/{{ tarea.id }}"
-class="btn btn-primary">
-
-Ver tarea
-
-</a>
-
-</div>
-
-</div>
-
-{% endfor %}
-
-</div>
+		<div class="col-12 text-center mt-4">
+			<a href="/entregas" class="btn btn-secondary">
+				Mis entregas
+			</a>
+		</div>
+	</div>
 
 {% endblock %}

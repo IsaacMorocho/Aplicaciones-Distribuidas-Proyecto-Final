@@ -1,18 +1,20 @@
 from flask import render_template
-from App.database import tareas
+
+import services
+
 
 def configurar_rutas(app):
 
     @app.route("/")
     def login():
 
-        return render_template(
-            "login.html"
-        )
+        return render_template("login.html")
 
 
     @app.route("/dashboard")
     def dashboard():
+
+        tareas = services.listar_tareas()
 
         return render_template(
             "dashboard.html",
@@ -20,13 +22,10 @@ def configurar_rutas(app):
         )
 
 
-    @app.route("/tarea/<int:id>")
-    def ver_tarea(id):
+    @app.route("/tarea/<int:id_tarea>")
+    def tarea(id_tarea):
 
-        tarea = next(
-            (t for t in tareas if t["id"]==id),
-            None
-        )
+        tarea = services.obtener_tarea(id_tarea)
 
         return render_template(
             "tarea.html",
@@ -36,13 +35,13 @@ def configurar_rutas(app):
         )
 
 
-    @app.route("/entrega/<int:id>")
-    def ver_entrega(id):
+    @app.route("/entrega/<int:id_tarea>")
+    def entrega(id_tarea):
 
-        entrega={
-            "titulo":"Aplicación Flask",
-            "respuesta":"Respuesta simulada",
-            "fecha":"17/07/2026"
+        entrega = {
+            "titulo": "Aplicación Flask",
+            "respuesta": "Respuesta de ejemplo",
+            "fecha": "17/07/2026"
         }
 
         return render_template(

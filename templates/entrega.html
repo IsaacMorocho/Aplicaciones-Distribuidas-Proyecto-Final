@@ -1,67 +1,33 @@
 {% extends 'base.html' %}
 
 {% block titulo %}
-
 Mi entrega
-
 {% endblock %}
 
 {% block contenido %}
+	<div class="card p-4">
+		<h2>Entrega realizada</h2>
 
-<div class="card p-4">
+		<hr>
 
-<h2>
+		<p><strong>Título de la tarea</strong></p>
+		<h4>{{ entrega.titulo }}</h4>
 
-Entrega realizada
+		<hr>
 
-</h2>
+		<p><strong>Respuesta enviada</strong></p>
 
-<hr>
+		<div class="border rounded p-3 bg-light">
+			{{ entrega.respuesta }}
+		</div>
 
-<p>
+		<hr>
 
-<strong>Título de la tarea</strong>
+		<p><strong>Fecha de envío:</strong> {{ entrega.fecha_envio }}</p>
 
-</p>
-
-<h4>
-
-{{ entrega.titulo }}
-
-</h4>
-
-<hr>
-
-<p>
-
-<strong>Respuesta enviada</strong>
-
-</p>
-
-<div class="border rounded p-3 bg-light">
-
-{{ entrega.respuesta }}
-
-</div>
-
-<hr>
-
-<p>
-
-<strong>Fecha de envío:</strong>
-
-{{ entrega.fecha }}
-
-</p>
-
-<a
-href="/dashboard"
-class="btn btn-primary">
-
-Volver
-
-</a>
-
-</div>
+		<a href="/dashboard" class="btn btn-primary">
+			Volver
+		</a>
+	</div>
 
 {% endblock %}
