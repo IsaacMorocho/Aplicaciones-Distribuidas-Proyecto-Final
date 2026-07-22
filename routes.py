@@ -41,16 +41,40 @@ def configurar_rutas(app):
         )
 
 
-    @app.route("/tarea/<int:id_tarea>")
+    @app.route("/tarea/<int:id_tarea>", methods=["GET", "POST"])
     def tarea(id_tarea):
+        if 'usuario_id' not in session:
+            return redirect(url_for('login'))
 
         tarea = services.obtener_tarea(id_tarea)
+        if not tarea:
+            return redirect(url_for('dashboard'))
+            
+        usuario_id = session['usuario_id']
+        entrega = services.obtener_entrega(usuario_id, id_tarea)
+        entregada = entrega is not None
+        expirada = services.fecha_expirada(tarea)
+
+        if request.method == "POST":
+            if expirada:
+                return render_template("tarea.html", tarea=tarea, expirada=expirada, entregada=entregada, entrega=entrega, error="El plazo de entrega ha expirado")
+            
+            if entregada:
+                return render_template("tarea.html", tarea=tarea, expirada=expirada, entregada=entregada, entrega=entrega, error="Ya registraste una entrega para esta tarea")
+            
+            respuesta = request.form.get("respuesta")
+            services.registrar_entrega(usuario_id, id_tarea, respuesta)
+            
+            # Refetch entrega after successful submission
+            entrega = services.obtener_entrega(usuario_id, id_tarea)
+            return render_template("tarea.html", tarea=tarea, expirada=expirada, entregada=True, entrega=entrega, success="Entrega registrada exitosamente")
 
         return render_template(
             "tarea.html",
             tarea=tarea,
-            expirada=False,
-            entregada=False
+            expirada=expirada,
+            entregada=entregada,
+            entrega=entrega
         )
 
 

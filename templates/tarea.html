@@ -12,17 +12,28 @@ Tarea
 
 		<p><strong>Código:</strong> {{ tarea.codigo }}</p>
 		<p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
-		<p><strong>Fecha límite:</strong> {{ tarea.fecha }} {{ tarea.hora }}</p>
+		<p><strong>Fecha límite:</strong> {{ tarea.fecha_limite.strftime('%d/%m/%Y %H:%M') }}</p>
 
 		<hr>
+
+		{% if error %}
+			<div class="alert alert-danger">{{ error }}</div>
+		{% endif %}
+		{% if success %}
+			<div class="alert alert-success">{{ success }}</div>
+		{% endif %}
 
 		{% if expirada %}
 			<div class="alert alert-danger">
 				La fecha límite de entrega ha expirado.
 			</div>
 		{% elif entregada %}
-			<div class="alert alert-warning">
+			<div class="alert alert-info">
 				Ya realizaste la entrega de esta tarea.
+			</div>
+			<p><strong>Tu respuesta:</strong></p>
+			<div class="border rounded p-3 bg-light mb-3">
+				{{ entrega.respuesta }}
 			</div>
 		{% else %}
 			<form action="/tarea/{{ tarea.id }}" method="POST">
