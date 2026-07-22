@@ -11,6 +11,11 @@ Login
                 <h2 class="text-center mb-4">Inicio de Sesión</h2>
 
                 <form action="/login" method="POST">
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
                     <div class="mb-3">
                         <label>Correo institucional</label>
                         <input type="email" name="correo" class="form-control" required>

@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request, session, redirect, url_for
 
 import services
 
@@ -11,10 +11,29 @@ def configurar_rutas(app):
         return render_template("login.html")
 
 
+    @app.route("/login", methods=["POST"])
+    def do_login():
+        correo = request.form.get("correo")
+        password = request.form.get("password")
+        
+        usuario = services.autenticar_usuario(correo, password)
+        if usuario:
+            session['usuario_id'] = usuario['id']
+            session['username'] = usuario['correo']
+            return redirect(url_for('dashboard'))
+        
+        return render_template("login.html", error="Credenciales incorrectas")
+
+
     @app.route("/dashboard")
     def dashboard():
+        if 'usuario_id' not in session:
+            return redirect(url_for('login'))
 
         tareas = services.listar_tareas()
+        
+        for tarea in tareas:
+            tarea['expirada'] = services.fecha_expirada(tarea)
 
         return render_template(
             "dashboard.html",

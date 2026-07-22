@@ -10,16 +10,15 @@ Dashboard
 	<div class="row">
 		{% for tarea in tareas %}
 			<div class="col-md-6 mb-4">
-				<div class="card p-4">
+				<div class="card p-4 {% if tarea.expirada %}border border-danger border-2{% else %}border border-success border-2{% endif %}">
 					<h4>{{ tarea.titulo }}</h4>
 					<hr>
 
 					<p><strong>Código:</strong> {{ tarea.codigo }}</p>
 					<p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
 					<p><strong>Fecha límite:</strong> {{ tarea.fecha_limite.strftime('%d/%m/%Y %H:%M') }}</p>
-					<p><strong>Hora límite:</strong> {{ tarea.hora }}</p>
 
-					<a href="{{ url_for('ver_tarea', id_tarea=tarea.id) }}" class="btn btn-primary">
+					<a href="{{ url_for('tarea', id_tarea=tarea.id) }}" class="btn btn-primary">
 						Ver tarea
 					</a>
 				</div>

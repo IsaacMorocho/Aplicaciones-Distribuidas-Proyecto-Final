@@ -1,8 +1,12 @@
+import os
 from flask import Flask
 from routes import configurar_rutas
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "admin123"
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "admin123")
 
 configurar_rutas(app)
 
