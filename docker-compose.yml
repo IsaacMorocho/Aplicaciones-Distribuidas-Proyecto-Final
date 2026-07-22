@@ -39,8 +39,6 @@ services:
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       DB_NAME: ${DB_NAME}
       FLASK_SECRET_KEY: ${FLASK_SECRET_KEY:-admin123}
-    ports:
-      - "5001:5000"
     depends_on:
       - db-master
 
@@ -55,8 +53,6 @@ services:
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       DB_NAME: ${DB_NAME}
       FLASK_SECRET_KEY: ${FLASK_SECRET_KEY:-admin123}
-    ports:
-      - "5002:5000"
     depends_on:
       - db-master
 
@@ -71,10 +67,20 @@ services:
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       DB_NAME: ${DB_NAME}
       FLASK_SECRET_KEY: ${FLASK_SECRET_KEY:-admin123}
-    ports:
-      - "5003:5000"
     depends_on:
       - db-master
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app1
+      - app2
+      - app3
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
