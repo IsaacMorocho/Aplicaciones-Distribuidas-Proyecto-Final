@@ -8,6 +8,11 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "admin123")
 
+import socket
+@app.context_processor
+def inject_hostname():
+    return dict(nodo_atendido=socket.gethostname())
+
 configurar_rutas(app)
 
 if __name__ == "__main__":

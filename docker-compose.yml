@@ -28,6 +28,54 @@ services:
     depends_on:
       - db-master
 
+  app1:
+    build: .
+    container_name: app1
+    hostname: app1
+    environment:
+      DB_HOST: db-master
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      FLASK_SECRET_KEY: ${FLASK_SECRET_KEY:-admin123}
+    ports:
+      - "5001:5000"
+    depends_on:
+      - db-master
+
+  app2:
+    build: .
+    container_name: app2
+    hostname: app2
+    environment:
+      DB_HOST: db-master
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      FLASK_SECRET_KEY: ${FLASK_SECRET_KEY:-admin123}
+    ports:
+      - "5002:5000"
+    depends_on:
+      - db-master
+
+  app3:
+    build: .
+    container_name: app3
+    hostname: app3
+    environment:
+      DB_HOST: db-master
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      FLASK_SECRET_KEY: ${FLASK_SECRET_KEY:-admin123}
+    ports:
+      - "5003:5000"
+    depends_on:
+      - db-master
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
