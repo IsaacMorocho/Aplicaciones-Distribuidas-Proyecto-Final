@@ -42,7 +42,7 @@ Se definió el esquema relacional (`users`, `tasks`, `submissions`) utilizando s
 Se estableció el esqueleto de `docker-compose.yml`, aprovisionando un contenedor `db-master` basado en MySQL 8. Para prevenir problemas de caracteres especiales en la capa de datos, se forzó la codificación `utf8mb4` directamente en el comando de inicialización de MySQL y en el script semilla `init.sql`. Se añadió PhpMyAdmin para auditoría visual.
 
 ### Fase 3 — Replicación Master-Slave
-Se aprovisionó un segundo contenedor `db-slave`. Se configuró la replicación binaria asíncrona creando un usuario `repl` en el Master y ejecutando el comando `CHANGE REPLICATION SOURCE TO` en el esclavo. El clúster quedó operando unidireccionalmente. En esta fase, la aplicación se mantiene conectada exclusivamente al Master.
+Se aprovisionó un segundo contenedor `db-slave`. Se configuró la replicación binaria asíncrona creando un usuario `repl` en el Master y ejecutando el comando `CHANGE REPLICATION SOURCE TO` en el esclavo. El clúster quedó operando unidireccionalmente. En esta fase, la aplicación se mantiene conectada exclusivamente al Master. *(Ver comandos detallados en [db/replication-setup.md](db/replication-setup.md))*
 
 ### Fase 4 — Capa Web (Login y Dashboard)
 Se implementaron los controladores en `routes.py` y `app1.py`. Se programó un flujo de autenticación seguro comprobando hashes (`werkzeug.security`). Tras la validación, se establece una cookie de sesión cifrada, permitiendo el acceso al panel de control (Dashboard) donde se listan las tareas dinámicamente desde el Master.

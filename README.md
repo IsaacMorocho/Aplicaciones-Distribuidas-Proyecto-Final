@@ -34,30 +34,33 @@ graph TD
 
 ```text
 .
-├── app1.py                   # Entrypoint de la aplicación Flask
-├── database.py               # Capa de acceso a datos (MySQL Connector)
-├── docker-compose.yml        # Orquestación de contenedores
-├── Dockerfile                # Imagen base para los nodos Flask
-├── locustfile.py             # Script de pruebas de carga concurrente
-├── README.md                 # Documentación técnica
-├── INFORME_TECNICO.md        # Informe detallado del diseño e implementación
-├── requirements.txt          # Dependencias de Python
-├── routes.py                 # Enrutamiento y controladores
-├── services.py               # Lógica de negocio
-├── test_balanceo.py          # Script de prueba de distribución NGINX
 ├── db/
-│   ├── init.sql              # Esquema DDL y datos semilla (users, tasks, submissions)
-│   └── replication-setup.md  # Instrucciones para la replicación
-├── jmeter/
-│   └── plan-de-pruebas.jmx   # Plan de pruebas de JMeter
+│   ├── init.sql                 # Esquema DDL y datos semilla
+│   └── replication-setup.md     # Instrucciones de replicación
 ├── nginx/
-│   └── nginx.conf            # Configuración del proxy reverso (Pesos 3:2:1)
-└── templates/
-    ├── base.html             # Layout principal (incluye footer con nodo)
-    ├── dashboard.html        # Vista de tareas vigentes/vencidas
-    ├── entregas.html         # Historial de entregas del estudiante
-    ├── login.html            # Pantalla de autenticación
-    └── tarea.html            # Interfaz de envío de respuesta
+│   └── nginx.conf               # Configuración del balanceador
+├── templates/
+│   ├── base.html                # Layout principal con footer
+│   ├── dashboard.html           # Panel de tareas vigentes/vencidas
+│   ├── entregas.html            # Historial renderizado de entregas
+│   ├── login.html               # Pantalla de autenticación
+│   └── tarea.html               # Interfaz de envío de respuesta
+├── .env                         # Variables de entorno activas
+├── .env.example                 # Plantilla de variables de entorno
+├── .gitignore                   # Reglas de exclusión de Git
+├── app1.py                      # Entrypoint de Flask y context_processors
+├── database.py                  # Capa de acceso a datos MySQL
+├── docker-compose.yml           # Orquestación de los 6 contenedores
+├── Dockerfile                   # Imagen base Gunicorn/Flask
+├── dump.sql                     # Respaldo de BD
+├── INFORME_TECNICO.md           # Documentación de arquitectura y pruebas
+├── locustfile.py                # Script de pruebas de carga concurrente
+├── README.md                    # Guía rápida del repositorio
+├── reporte_locust.html          # Resultados exportados de Locust
+├── requirements.txt             # Dependencias de Python
+├── routes.py                    # Controladores HTTP
+├── services.py                  # Lógica de negocio y validaciones
+└── test_balanceo.py             # Script automatizado de validación NGINX
 ```
 
 ## Instrucciones de Instalación y Ejecución
