@@ -55,6 +55,24 @@ def obtener_entregas():
     return entregas
 
 
+def obtener_entregas_estudiante(id_estudiante):
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    query = """
+        SELECT s.id, s.student_id as id_estudiante, s.task_id as id_tarea, 
+               s.respuesta, s.fecha_entrega as fecha_envio, t.titulo 
+        FROM submissions s 
+        JOIN tasks t ON s.task_id = t.id 
+        WHERE s.student_id = %s
+        ORDER BY s.fecha_entrega DESC
+    """
+    cursor.execute(query, (id_estudiante,))
+    entregas = cursor.fetchall()
+    conn.close()
+    return entregas
+
+
+
 def guardar_entrega(entrega):
     conn = get_connection()
     cursor = conn.cursor()

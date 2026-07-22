@@ -78,16 +78,15 @@ def configurar_rutas(app):
         )
 
 
-    @app.route("/entrega/<int:id_tarea>")
-    def entrega(id_tarea):
+    @app.route("/entregas")
+    def entregas():
+        if 'usuario_id' not in session:
+            return redirect(url_for('login'))
 
-        entrega = {
-            "titulo": "Aplicación Flask",
-            "respuesta": "Respuesta de ejemplo",
-            "fecha": "17/07/2026"
-        }
+        usuario_id = session['usuario_id']
+        mis_entregas = services.obtener_entregas_estudiante(usuario_id)
 
         return render_template(
-            "entrega.html",
-            entrega=entrega
+            "entregas.html",
+            entregas=mis_entregas
         )

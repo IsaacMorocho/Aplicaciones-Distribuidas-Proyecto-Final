@@ -87,6 +87,7 @@ services:
     container_name: phpmyadmin
     environment:
       PMA_HOST: db-master
+      PMA_ARBITRARY: 1
     ports:
       - "8080:80"
     depends_on:

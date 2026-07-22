@@ -89,3 +89,6 @@ def obtener_entrega(id_estudiante, id_tarea):
             return entrega
 
     return None
+
+def obtener_entregas_estudiante(id_estudiante):
+    return database.obtener_entregas_estudiante(id_estudiante)
