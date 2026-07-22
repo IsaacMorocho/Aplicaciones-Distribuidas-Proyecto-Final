@@ -1,4 +1,5 @@
 from datetime import datetime
+from werkzeug.security import check_password_hash
 
 import database
 
@@ -13,7 +14,7 @@ def autenticar_usuario(correo, password):
 
     for estudiante in estudiantes:
 
-        if estudiante["correo"] == correo and estudiante["password"] == password:
+        if estudiante["correo"] == correo and check_password_hash(estudiante["password"], password):
             return estudiante
 
     return None
